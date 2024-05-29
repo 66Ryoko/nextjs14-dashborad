@@ -16,6 +16,14 @@ export const authConfig = {
       }
       return true;
     },
+    async session({ session }) {
+      console.log(`session: %o`, session);
+      return session;
+    },
+    async signIn({ profile }) {
+      console.log(`profile: %o`, profile);
+      return true;
+    },
   },
   providers: [], // Add providers with an empty array for now
 } satisfies NextAuthConfig;

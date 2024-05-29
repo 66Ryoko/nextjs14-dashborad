@@ -1,6 +1,7 @@
 import NextAuth from 'next-auth';
 import { authConfig } from './auth.config';
 import Credentials from 'next-auth/providers/credentials';
+import Google from 'next-auth/providers/google';
 import { z } from 'zod';
 import { sql } from '@vercel/postgres';
 import type { User } from '@/app/lib/definitions';
@@ -15,9 +16,10 @@ async function getUser(email: string): Promise<User | undefined> {
     throw new Error('Failed to fetch user.');
   }
 }
-export const { auth, signIn, signOut } = NextAuth({
+export const { auth, handlers, signIn, signOut } = NextAuth({
   ...authConfig,
   providers: [
+    Google,
     Credentials({
       async authorize(credentials) {
         const parsedCredentials = z
